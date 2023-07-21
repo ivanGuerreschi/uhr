@@ -130,13 +130,56 @@ int main(void) {
         "| |    | |  | |\n"
         "|_|    |_|  |_| ";
 
+    const char *two_points =
+        " _ \n"
+        "(_)\n"
+        "   \n"
+        " _ \n"
+        "(_)\n"
+        "   ";
+
+
     /* Ncurses */
 
     initscr();
 
-    printw("Hello, World!");
+    curs_set(0);
 
+    WINDOW *hours0 = newwin(10, 10, 0, 0);
     refresh();
+
+    mvwprintw(hours0, 0, 0, one);
+
+    wrefresh(hours0);
+
+    WINDOW *hours1 = newwin(10, 10, 0, 10);
+    refresh();
+
+    mvwprintw(hours1, 0, 0, two);
+
+    wrefresh(hours1);
+
+    WINDOW *separator = newwin(10, 10, 0, 20);
+    refresh();
+
+    mvwprintw(separator, 0, 0, two_points);
+
+    wrefresh(separator);
+
+    WINDOW *minutes0 = newwin(10, 10, 0, 30);
+    refresh();
+
+    mvwprintw(minutes0, 0, 0, three);
+
+    wrefresh(minutes0);
+
+    WINDOW *minutes1= newwin(10, 10, 0, 40);
+    refresh();
+
+    mvwprintw(minutes1, 0, 0, zero);
+
+    wrefresh(minutes1);
+
     getch();
     endwin();
 
