@@ -34,7 +34,86 @@
 #include <stdio.h>
 
 int main(void) {
-    puts("Hello, World!");
+    const char *one = " __ \n"
+                      "/_ |\n"
+                      " | |\n"
+                      " | |\n"
+                      " | |\n"
+                      " |_| ";
+
+    const char *two =  " ___  \n"
+                       "|__ \\\n"
+                       "   ) |\n"
+                       "  / / \n"
+                       " / /_ \n"
+                       "|____| ";
+
+    const char *three = " ____  \n"
+                        "|___ \\\n"
+                        "  __) |\n"
+                        " |__ < \n"
+                        " ___) |\n"
+                        "|____/  ";
+
+    const char *four = " _  _   \n"
+                       "| || |  \n"
+                       "| || |_ \n"
+                       "|__   _|\n"
+                       "   | |  \n"
+                       "   |_|   ";
+
+    const char *five = " _____  \n"
+                       "| ____| \n"
+                       "| |__   \n"
+                       "|___ \\ \n"
+                       " ___) | \n"
+                       "|____/   ";
+
+    const char *six = "   __   \n"
+                      "  / /   \n"
+                      " / /_   \n"
+                      "| '_ \\ \n"
+                      "| (_) | \n"
+                      " \\___/  ";
+
+    const char *seven = " ______ \n"
+                        "|____  |\n"
+                        "    / / \n"
+                        "  / /   \n"
+                        " / /    \n"
+                        "/_/      ";
+
+    const char *eight = "  ___  \n"
+                        " / _ \\\n"
+                        "| (_) |\n"
+                        " > _ < \n"
+                        "| (_) |\n"
+                        " \\___/ ";
+
+    const char *nine = "  ___   \n"
+                       " / _ \\ \n"
+                       "| (_) | \n"
+                       " \\__, |\n"
+                       "   / /  \n"
+                       "  /_/    ";
+
+    const char *zero = "  ___   \n"
+                       " / _ \\ \n"
+                       "| | | | \n"
+                       "| | | | \n"
+                       "| |_| | \n"
+                       " \\___/  ";
+
+    printf("%s\n", one);
+    printf("%s\n", two);
+    printf("%s\n", three);
+    printf("%s\n", four);
+    printf("%s\n", five);
+    printf("%s\n", six);
+    printf("%s\n", seven);
+    printf("%s\n", eight);
+    printf("%s\n", nine);
+    printf("%s\n", zero);
 
     return 0;
 }
