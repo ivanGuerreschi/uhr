@@ -123,15 +123,18 @@ int main(void) {
         "/_/    \\_\\_|  |_|  ";
 
     const char *pm =
+        " _____  __  __  \n"
         "|  __ \\|  \\/  |\n"
         "| |__) | \\  / |\n"
         "|  ___/| |\\/| |\n"
         "| |    | |  | |\n"
         "|_|    |_|  |_| ";
 
+    /* Ncurses */
+
     initscr();
 
-    printw(one);
+    printw("Hello, World!");
 
     refresh();
     getch();
