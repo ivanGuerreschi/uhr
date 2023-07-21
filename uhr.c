@@ -31,7 +31,7 @@
  * SUCH DAMAGE.
  */
 
-#include <stdio.h>
+#include <ncurses.h>
 
 int main(void) {
     const char *one =
@@ -128,6 +128,14 @@ int main(void) {
         "|  ___/| |\\/| |\n"
         "| |    | |  | |\n"
         "|_|    |_|  |_| ";
+
+    initscr();
+
+    printw(one);
+
+    refresh();
+    getch();
+    endwin();
 
     return 0;
 }
