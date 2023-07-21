@@ -129,20 +129,5 @@ int main(void) {
         "| |    | |  | |\n"
         "|_|    |_|  |_| ";
 
-
-
-    printf("%s\n", one);
-    printf("%s\n", two);
-    printf("%s\n", three);
-    printf("%s\n", four);
-    printf("%s\n", five);
-    printf("%s\n", six);
-    printf("%s\n", seven);
-    printf("%s\n", eight);
-    printf("%s\n", nine);
-    printf("%s\n", zero);
-    printf("%s\n", am);
-    printf("%s\n", pm);
-
     return 0;
 }
