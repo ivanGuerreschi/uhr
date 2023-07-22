@@ -34,6 +34,9 @@
 #include <ncurses.h>
 
 int main(void) {
+
+    /* Symbols */
+
     const char *one =
         " __ \n"
         "/_ |\n"
@@ -123,12 +126,12 @@ int main(void) {
         "/_/    \\_\\_|  |_|  ";
 
     const char *pm =
-        " _____  __  __  \n"
+        " _____  __  __   \n"
         "|  __ \\|  \\/  |\n"
-        "| |__) | \\  / |\n"
-        "|  ___/| |\\/| |\n"
-        "| |    | |  | |\n"
-        "|_|    |_|  |_| ";
+        "| |__) | \\  / | \n"
+        "|  ___/| |\\/| | \n"
+        "| |    | |  | |  \n"
+        "|_|    |_|  |_|   ";
 
     const char *two_points =
         " _ \n"
@@ -138,6 +141,13 @@ int main(void) {
         "(_)\n"
         "   ";
 
+    /* Timer */
+
+    const char *hours0 = one;
+    const char *hours1 = two;
+    const char *minutes0 = three;
+    const char *minutes1 = zero;
+    const char *meridiem = pm;
 
     /* Ncurses */
 
@@ -145,40 +155,47 @@ int main(void) {
 
     curs_set(0);
 
-    WINDOW *hours0 = newwin(10, 10, 0, 0);
+    WINDOW *position0 = newwin(10, 10, 10, 10);
     refresh();
 
-    mvwprintw(hours0, 0, 0, one);
+    mvwprintw(position0, 0, 0, "%s", hours0);
 
-    wrefresh(hours0);
+    wrefresh(position0);
 
-    WINDOW *hours1 = newwin(10, 10, 0, 10);
+    WINDOW *position1 = newwin(10, 10, 10, 20);
     refresh();
 
-    mvwprintw(hours1, 0, 0, two);
+    mvwprintw(position1, 0, 0, "%s", hours1);
 
-    wrefresh(hours1);
+    wrefresh(position1);
 
-    WINDOW *separator = newwin(10, 10, 0, 20);
+    WINDOW *separator = newwin(10, 10, 10, 30);
     refresh();
 
-    mvwprintw(separator, 0, 0, two_points);
+    mvwprintw(separator, 0, 0, "%s", two_points);
 
     wrefresh(separator);
 
-    WINDOW *minutes0 = newwin(10, 10, 0, 30);
+    WINDOW *position2 = newwin(10, 10, 10, 40);
     refresh();
 
-    mvwprintw(minutes0, 0, 0, three);
+    mvwprintw(position2, 0, 0, "%s", minutes0);
 
-    wrefresh(minutes0);
+    wrefresh(position2);
 
-    WINDOW *minutes1= newwin(10, 10, 0, 40);
+    WINDOW *position3= newwin(10, 10, 10, 50);
     refresh();
 
-    mvwprintw(minutes1, 0, 0, zero);
+    mvwprintw(position3, 0, 0, "%s", minutes1);
 
-    wrefresh(minutes1);
+    wrefresh(position3);
+
+    WINDOW *ampm= newwin(10, 20, 10, 60);
+    refresh();
+
+    mvwprintw(ampm, 0, 0, "%s", meridiem);
+
+    wrefresh(ampm);
 
     getch();
     endwin();
