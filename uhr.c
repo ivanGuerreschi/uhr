@@ -32,6 +32,7 @@
  */
 
 #include <ncurses.h>
+#include <time.h>
 
 int main(void) {
 
@@ -143,10 +144,20 @@ int main(void) {
 
     /* Timer */
 
-    const char *hours0 = one;
-    const char *hours1 = two;
-    const char *minutes0 = three;
-    const char *minutes1 = zero;
+    time_t rawtime;
+    struct tm *timeinfo;
+    int hour;
+    int minute;
+
+    rawtime = time (NULL);
+    timeinfo = localtime (&rawtime);
+    hour = timeinfo->tm_hour;
+    minute = timeinfo->tm_min;
+
+    const char *hour0 = one;
+    const char *hour1 = two;
+    const char *minute0 = three;
+    const char *minute1 = zero;
     const char *meridiem = pm;
 
     /* Ncurses */
@@ -158,14 +169,14 @@ int main(void) {
     WINDOW *position0 = newwin(10, 10, 10, 10);
     refresh();
 
-    mvwprintw(position0, 0, 0, "%s", hours0);
+    mvwprintw(position0, 0, 0, "%s", hour0);
 
     wrefresh(position0);
 
     WINDOW *position1 = newwin(10, 10, 10, 20);
     refresh();
 
-    mvwprintw(position1, 0, 0, "%s", hours1);
+    mvwprintw(position1, 0, 0, "%s", hour1);
 
     wrefresh(position1);
 
@@ -179,14 +190,14 @@ int main(void) {
     WINDOW *position2 = newwin(10, 10, 10, 40);
     refresh();
 
-    mvwprintw(position2, 0, 0, "%s", minutes0);
+    mvwprintw(position2, 0, 0, "%s", minute0);
 
     wrefresh(position2);
 
     WINDOW *position3= newwin(10, 10, 10, 50);
     refresh();
 
-    mvwprintw(position3, 0, 0, "%s", minutes1);
+    mvwprintw(position3, 0, 0, "%s", minute1);
 
     wrefresh(position3);
 
