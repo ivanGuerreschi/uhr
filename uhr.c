@@ -32,6 +32,7 @@
  */
 
 #include <ncurses.h>
+#include <string.h>
 #include <time.h>
 
 int main(void) {
@@ -144,21 +145,22 @@ int main(void) {
 
     /* Timer */
 
-    time_t rawtime;
-    struct tm *timeinfo;
-    int hour;
-    int minute;
+    time_t rawtime = time(NULL);
+    struct tm *timeinfo = localtime(&rawtime);
+    int hour = timeinfo->tm_hour;
+    int minute = timeinfo->tm_min;
 
-    rawtime = time (NULL);
-    timeinfo = localtime (&rawtime);
-    hour = timeinfo->tm_hour;
-    minute = timeinfo->tm_min;
+    char hour0[100] = "";
+    char hour1[100] = "";
+    char minute0[100] = "";
+    char minute1[100] = "";
+    char meridiem[200] = "";
 
-    const char *hour0 = one;
-    const char *hour1 = two;
-    const char *minute0 = three;
-    const char *minute1 = zero;
-    const char *meridiem = pm;
+    strcpy(hour0, zero);
+    strcpy(hour1, zero);
+    strcpy(minute0, zero);
+    strcpy(minute1, zero);
+    strcpy(meridiem, am);
 
     /* Ncurses */
 
@@ -201,7 +203,7 @@ int main(void) {
 
     wrefresh(position3);
 
-    WINDOW *ampm= newwin(10, 20, 10, 60);
+    WINDOW *ampm= newwin(10, 25, 10, 60);
     refresh();
 
     mvwprintw(ampm, 0, 0, "%s", meridiem);
