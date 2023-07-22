@@ -162,6 +162,9 @@ int main(void) {
     strcpy(minute1, zero);
     strcpy(meridiem, am);
 
+    /* TODO */
+    /* Hours management and update of ncurses windows */
+
     /* Ncurses */
 
     initscr();
@@ -182,28 +185,28 @@ int main(void) {
 
     wrefresh(position1);
 
-    WINDOW *separator = newwin(10, 10, 10, 30);
+    WINDOW *separator = newwin(10, 5, 10, 30);
     refresh();
 
     mvwprintw(separator, 0, 0, "%s", two_points);
 
     wrefresh(separator);
 
-    WINDOW *position2 = newwin(10, 10, 10, 40);
+    WINDOW *position2 = newwin(10, 10, 10, 36);
     refresh();
 
     mvwprintw(position2, 0, 0, "%s", minute0);
 
     wrefresh(position2);
 
-    WINDOW *position3= newwin(10, 10, 10, 50);
+    WINDOW *position3= newwin(10, 10, 10, 46);
     refresh();
 
     mvwprintw(position3, 0, 0, "%s", minute1);
 
     wrefresh(position3);
 
-    WINDOW *ampm= newwin(10, 25, 10, 60);
+    WINDOW *ampm= newwin(10, 25, 10, 56);
     refresh();
 
     mvwprintw(ampm, 0, 0, "%s", meridiem);
