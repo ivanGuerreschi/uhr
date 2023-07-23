@@ -172,13 +172,13 @@ int main(void) {
     sprintf(substring_minute, "%d", minute);
 
     /* Remove warnings because reset after string termination with '\0' */
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wstringop-truncation"
-    strncpy(hour0, substring_hour, 1);
-    strncpy(hour1, substring_hour + 1, 1);
-    strncpy(minute0, substring_minute, 1);
-    strncpy(minute1, substring_minute + 1, 1);
-#pragma GCC diagnostic pop
+    #pragma GCC diagnostic push
+    #pragma GCC diagnostic ignored "-Wstringop-truncation"
+        strncpy(hour0, substring_hour, 1);
+        strncpy(hour1, substring_hour + 1, 1);
+        strncpy(minute0, substring_minute, 1);
+        strncpy(minute1, substring_minute + 1, 1);
+    #pragma GCC diagnostic pop
 
     /* Add string terminator truncated by strncpy */
     hour0[1] = '\0';
