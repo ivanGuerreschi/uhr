@@ -143,7 +143,7 @@ int main(void) {
         "(_)\n"
         "   ";
 
-    /* Timer */
+    /* Time management */
 
     time_t rawtime = time(NULL);
     struct tm *timeinfo = localtime(&rawtime);
@@ -164,6 +164,24 @@ int main(void) {
 
     /* TODO */
     /* Hours management and update of ncurses windows */
+
+    char substring_hour[3];
+    sprintf(substring_hour, "%d", hour);
+    strncpy(hour0, substring_hour, 1);
+    strncpy(hour1, substring_hour + 1, 1);
+
+    char substring_minute[3];
+    sprintf(substring_minute, "%d", minute);
+    strncpy(minute0, substring_minute, 1);
+    strncpy(minute1, substring_minute + 1, 1);
+
+    if (strcmp(hour0, "")) {
+        strcpy(hour0, zero);
+    }
+
+    if (strcmp(minute0, "")) {
+        strcpy(minute0, zero);
+    }
 
     /* Ncurses */
 
