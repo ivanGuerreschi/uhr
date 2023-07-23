@@ -261,7 +261,7 @@ int main(void) {
         strcpy(minute0, zero);
     }
 
-    if (strcmp(minute0, "0") == 0)
+    else if (strcmp(minute0, "0") == 0)
         strcpy(minute0, zero);
 
     else if (strcmp(minute0, "1") == 0)
