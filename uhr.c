@@ -119,23 +119,7 @@ int main(void) {
         "| |_| | \n"
         " \\___/  ";
 
-    const char *am =
-        "          __  __    \n"
-        "    /\\   |  \\/  | \n"
-        "   /  \\  | \\  / | \n"
-        "  / /\\ \\ | |\\/| |\n"
-        " / ____ \\| |  | |  \n"
-        "/_/    \\_\\_|  |_|  ";
-
-    const char *pm =
-        " _____  __  __   \n"
-        "|  __ \\|  \\/  |\n"
-        "| |__) | \\  / | \n"
-        "|  ___/| |\\/| | \n"
-        "| |    | |  | |  \n"
-        "|_|    |_|  |_|   ";
-
-    const char *two_points =
+   const char *two_points =
         " _ \n"
         "(_)\n"
         "   \n"
@@ -150,17 +134,15 @@ int main(void) {
     int hour = timeinfo->tm_hour;
     int minute = timeinfo->tm_min;
 
-    char hour0[100] = {0};
-    char hour1[100] = {0};
-    char minute0[100] = {0};
-    char minute1[100] = {0};
-    char meridiem[200] = "";
+    char hour0[100];
+    char hour1[100];
+    char minute0[100];
+    char minute1[100];
 
     strcpy(hour0, zero);
     strcpy(hour1, zero);
     strcpy(minute0, zero);
     strcpy(minute1, zero);
-    strcpy(meridiem, am);
 
     char substring_hour[3];
     sprintf(substring_hour, "%d", hour);
@@ -182,11 +164,6 @@ int main(void) {
     hour1[1] = '\0';
     minute0[1] = '\0';
     minute1[1] = '\0';
-
-    if (hour > 12)
-        strcpy(meridiem, pm);
-    else
-        strcpy(meridiem, am);
 
     if (hour1[0] == '\0') {
         strcpy(hour1, hour0);
@@ -358,13 +335,6 @@ int main(void) {
     mvwprintw(position3, 0, 0, "%s", minute1);
 
     wrefresh(position3);
-
-    WINDOW *ampm= newwin(10, 25, 10, 56);
-    refresh();
-
-    mvwprintw(ampm, 0, 0, "%s", meridiem);
-
-    wrefresh(ampm);
 
     getch();
     endwin();
