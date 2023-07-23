@@ -162,9 +162,6 @@ int main(void) {
     strcpy(minute1, zero);
     strcpy(meridiem, am);
 
-    /* TODO */
-    /* Hours management and update of ncurses windows */
-
     char substring_hour[3];
     sprintf(substring_hour, "%d", hour);
 
