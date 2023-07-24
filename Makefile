@@ -1,4 +1,4 @@
-# Makefile.am
+# Makefile
 #
 # Copyright (C) 2023 Ivan Guerreschi <ivanguerreschi86@gmailcom>
 #
