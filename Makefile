@@ -21,7 +21,7 @@ uhr: uhr.c
 	$(CC) -g -ggdb uhr.c -Wall -W -pedantic -std=c11 -O2 -o uhr -lncurses
 
 install:
-	mkdir -p ~/.local/bin && cp uhr ~/-local/bin
+	mkdir -p ~/.local/bin && cp uhr ~/.local/bin
 
 clean:
 	rm -rf uhr
