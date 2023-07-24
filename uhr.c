@@ -32,12 +32,21 @@
  */
 
 #include <ncurses.h>
+#include <unistd.h>
 #include <string.h>
 #include <time.h>
 
 int main(void) {
+    char hour0[100] = {0};
+    char hour1[100] = {0};
+    char minute0[100] = {0};
+    char minute1[100] = {0};
 
-    /* Symbols */
+    int hour = 0;
+    int minute = 0;
+
+    char substring_hour[3] = {0};
+    char substring_minute[3] = {0};
 
     const char *one =
         " __ \n"
@@ -119,183 +128,13 @@ int main(void) {
         "| |_| | \n"
         " \\___/  ";
 
-   const char *two_points =
+    const char *two_points =
         " _ \n"
         "(_)\n"
         "   \n"
         " _ \n"
         "(_)\n"
         "   ";
-
-    /* Time management */
-
-    time_t rawtime = time(NULL);
-    struct tm *timeinfo = localtime(&rawtime);
-    int hour = timeinfo->tm_hour;
-    int minute = timeinfo->tm_min;
-
-    char hour0[100];
-    char hour1[100];
-    char minute0[100];
-    char minute1[100];
-
-    strcpy(hour0, zero);
-    strcpy(hour1, zero);
-    strcpy(minute0, zero);
-    strcpy(minute1, zero);
-
-    char substring_hour[3];
-    sprintf(substring_hour, "%d", hour);
-
-    char substring_minute[3];
-    sprintf(substring_minute, "%d", minute);
-
-    /* Remove warnings because reset after string termination with '\0' */
-    #pragma GCC diagnostic push
-    #pragma GCC diagnostic ignored "-Wstringop-truncation"
-        strncpy(hour0, substring_hour, 1);
-        strncpy(hour1, substring_hour + 1, 1);
-        strncpy(minute0, substring_minute, 1);
-        strncpy(minute1, substring_minute + 1, 1);
-    #pragma GCC diagnostic pop
-
-    /* Add string terminator truncated by strncpy */
-    hour0[1] = '\0';
-    hour1[1] = '\0';
-    minute0[1] = '\0';
-    minute1[1] = '\0';
-
-    if (hour1[0] == '\0') {
-        strcpy(hour1, hour0);
-        strcpy(hour0, zero);
-    }
-
-    else if (strcmp(hour0, "0") == 0)
-        strcpy(hour0, zero);
-
-    else if (strcmp(hour0, "1") == 0)
-        strcpy(hour0, one);
-
-    else if (strcmp(hour0, "2") == 0)
-        strcpy(hour0, two);
-
-    else if (strcmp(hour0, "3") == 0)
-        strcpy(hour0, three);
-
-    else if (strcmp(hour0, "4") == 0)
-        strcpy(hour0, four);
-
-    else if (strcmp(hour0, "5") == 0)
-        strcpy(hour0, five);
-
-    else if (strcmp(hour0, "6") == 0)
-        strcpy(hour0, six);
-
-    else if (strcmp(hour0, "7") == 0)
-        strcpy(hour0, seven);
-
-    else if (strcmp(hour0, "8") == 0)
-        strcpy(hour0, eight);
-
-    else
-        strcpy(hour0, nine);
-
-    if (strcmp(hour1, "0") == 0)
-        strcpy(hour1, zero);
-
-    else if (strcmp(hour1, "1") == 0)
-        strcpy(hour1, one);
-
-    else if (strcmp(hour1, "2") == 0)
-        strcpy(hour1, two);
-
-    else if (strcmp(hour1, "3") == 0)
-        strcpy(hour1, three);
-
-    else if (strcmp(hour1, "4") == 0)
-        strcpy(hour1, four);
-
-    else if (strcmp(hour1, "5") == 0)
-        strcpy(hour1, five);
-
-    else if (strcmp(hour1, "6") == 0)
-        strcpy(hour1, six);
-
-    else if (strcmp(hour1, "7") == 0)
-        strcpy(hour1, seven);
-
-    else if (strcmp(hour1, "8") == 0)
-        strcpy(hour1, eight);
-
-    else
-        strcpy(hour1, nine);
-
-    if (minute1[0] == '\0') {
-        strcpy(minute1, minute0);
-        strcpy(minute0, zero);
-    }
-
-    else if (strcmp(minute0, "0") == 0)
-        strcpy(minute0, zero);
-
-    else if (strcmp(minute0, "1") == 0)
-        strcpy(minute0, one);
-
-    else if (strcmp(minute0, "2") == 0)
-        strcpy(minute0, two);
-
-    else if (strcmp(minute0, "3") == 0)
-        strcpy(minute0, three);
-
-    else if (strcmp(minute0, "4") == 0)
-        strcpy(minute0, four);
-
-    else if (strcmp(minute0, "5") == 0)
-        strcpy(minute0, five);
-
-    else if (strcmp(minute0, "6") == 0)
-        strcpy(minute0, six);
-
-    else if (strcmp(minute0, "7") == 0)
-        strcpy(minute0, seven);
-
-    else if (strcmp(minute0, "8") == 0)
-        strcpy(minute0, eight);
-
-    else
-        strcpy(minute0, nine);
-
-    if (strcmp(minute1, "0") == 0)
-        strcpy(minute1, zero);
-
-    else if (strcmp(minute1, "1") == 0)
-        strcpy(minute1, one);
-
-    else if (strcmp(minute1, "2") == 0)
-        strcpy(minute1, two);
-
-    else if (strcmp(minute1, "3") == 0)
-        strcpy(minute1, three);
-
-    else if (strcmp(minute1, "4") == 0)
-        strcpy(minute1, four);
-
-    else if (strcmp(minute1, "5") == 0)
-        strcpy(minute1, five);
-
-    else if (strcmp(minute1, "6") == 0)
-        strcpy(minute1, six);
-
-    else if (strcmp(minute1, "7") == 0)
-        strcpy(minute1, seven);
-
-    else if (strcmp(minute1, "8") == 0)
-        strcpy(minute1, eight);
-
-    else
-        strcpy(minute1, nine);
-
-    /* Ncurses */
 
     initscr();
 
@@ -335,6 +174,191 @@ int main(void) {
     mvwprintw(position3, 0, 0, "%s", minute1);
 
     wrefresh(position3);
+
+    for (;;) {
+        double interval = 1; 
+        time_t start = time (NULL);
+
+        sleep (interval);
+
+        time_t rawtime = time(NULL);
+        struct tm *timeinfo = localtime(&rawtime);
+
+        hour = timeinfo->tm_hour;
+        minute = timeinfo->tm_min;
+
+        sprintf(substring_hour, "%d", hour);
+        sprintf(substring_minute, "%d", minute);
+
+        /* Remove warnings because reset after string termination with '\0' */
+        #pragma GCC diagnostic push
+        #pragma GCC diagnostic ignored "-Wstringop-truncation"
+            strncpy(hour0, substring_hour, 1);
+            strncpy(hour1, substring_hour + 1, 1);
+            strncpy(minute0, substring_minute, 1);
+            strncpy(minute1, substring_minute + 1, 1);
+        #pragma GCC diagnostic pop
+
+        /* Add string terminator truncated by strncpy */
+        hour0[1] = '\0';
+        hour1[1] = '\0';
+        minute0[1] = '\0';
+        minute1[1] = '\0';
+
+        if (hour1[0] == '\0') {
+            strcpy(hour1, hour0);
+            strcpy(hour0, zero);
+        }
+
+        else if (strcmp(hour0, "0") == 0)
+            strcpy(hour0, zero);
+
+        else if (strcmp(hour0, "1") == 0)
+            strcpy(hour0, one);
+
+        else if (strcmp(hour0, "2") == 0)
+            strcpy(hour0, two);
+
+        else if (strcmp(hour0, "3") == 0)
+            strcpy(hour0, three);
+
+        else if (strcmp(hour0, "4") == 0)
+            strcpy(hour0, four);
+
+        else if (strcmp(hour0, "5") == 0)
+            strcpy(hour0, five);
+
+        else if (strcmp(hour0, "6") == 0)
+            strcpy(hour0, six);
+
+        else if (strcmp(hour0, "7") == 0)
+            strcpy(hour0, seven);
+
+        else if (strcmp(hour0, "8") == 0)
+            strcpy(hour0, eight);
+
+        else
+            strcpy(hour0, nine);
+
+        if (strcmp(hour1, "0") == 0)
+            strcpy(hour1, zero);
+
+        else if (strcmp(hour1, "1") == 0)
+            strcpy(hour1, one);
+
+        else if (strcmp(hour1, "2") == 0)
+            strcpy(hour1, two);
+
+        else if (strcmp(hour1, "3") == 0)
+            strcpy(hour1, three);
+
+        else if (strcmp(hour1, "4") == 0)
+            strcpy(hour1, four);
+
+        else if (strcmp(hour1, "5") == 0)
+            strcpy(hour1, five);
+
+        else if (strcmp(hour1, "6") == 0)
+            strcpy(hour1, six);
+
+        else if (strcmp(hour1, "7") == 0)
+            strcpy(hour1, seven);
+
+        else if (strcmp(hour1, "8") == 0)
+            strcpy(hour1, eight);
+
+        else
+            strcpy(hour1, nine);
+
+        if (minute1[0] == '\0') {
+            strcpy(minute1, minute0);
+            strcpy(minute0, zero);
+        }
+
+        else if (strcmp(minute0, "0") == 0)
+            strcpy(minute0, zero);
+
+        else if (strcmp(minute0, "1") == 0)
+            strcpy(minute0, one);
+
+        else if (strcmp(minute0, "2") == 0)
+            strcpy(minute0, two);
+
+        else if (strcmp(minute0, "3") == 0)
+            strcpy(minute0, three);
+
+        else if (strcmp(minute0, "4") == 0)
+            strcpy(minute0, four);
+
+        else if (strcmp(minute0, "5") == 0)
+            strcpy(minute0, five);
+
+        else if (strcmp(minute0, "6") == 0)
+            strcpy(minute0, six);
+
+        else if (strcmp(minute0, "7") == 0)
+            strcpy(minute0, seven);
+
+        else if (strcmp(minute0, "8") == 0)
+            strcpy(minute0, eight);
+
+        else
+            strcpy(minute0, nine);
+
+        if (strcmp(minute1, "0") == 0)
+            strcpy(minute1, zero);
+
+        else if (strcmp(minute1, "1") == 0)
+            strcpy(minute1, one);
+
+        else if (strcmp(minute1, "2") == 0)
+            strcpy(minute1, two);
+
+        else if (strcmp(minute1, "3") == 0)
+            strcpy(minute1, three);
+
+        else if (strcmp(minute1, "4") == 0)
+            strcpy(minute1, four);
+
+        else if (strcmp(minute1, "5") == 0)
+            strcpy(minute1, five);
+
+        else if (strcmp(minute1, "6") == 0)
+            strcpy(minute1, six);
+
+        else if (strcmp(minute1, "7") == 0)
+            strcpy(minute1, seven);
+
+        else if (strcmp(minute1, "8") == 0)
+            strcpy(minute1, eight);
+
+        else
+            strcpy(minute1, nine);
+
+        mvwprintw(position0, 0, 0, "%s", hour0);
+        wnoutrefresh(position0);
+        doupdate();
+
+        mvwprintw(position1, 0, 0, "%s", hour1);
+        wnoutrefresh(position1);
+        doupdate();
+
+        mvwprintw(position2, 0, 0, "%s", minute0);
+        wnoutrefresh(position2);
+        doupdate();
+
+        mvwprintw(position3, 0, 0, "%s", minute1);
+        wnoutrefresh(position3);
+        doupdate();
+
+        time_t end = time (NULL);
+
+        double elapsed = difftime (end, start);
+        int seconds_to_sleep = (int) (interval - elapsed);
+        if (seconds_to_sleep > 0)
+            sleep (seconds_to_sleep);
+
+    }
 
     getch();
     endwin();
